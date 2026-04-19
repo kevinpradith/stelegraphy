@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import { ThemeProvider } from '@/contexts/theme-context';
 import './globals.css';
+
+/** Inline: set data-theme before paint to avoid flash (must match STORAGE_KEY + logic in theme-context). */
+const themeInitScript = `!function(){try{var k='stele-theme',t=localStorage.getItem(k),r=document.documentElement;if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);r.style.colorScheme=t;}else if(matchMedia('(prefers-color-scheme: dark)').matches){r.setAttribute('data-theme','dark');r.style.colorScheme='dark';}else{r.setAttribute('data-theme','light');r.style.colorScheme='light';}}catch(e){}}();`;
 
 // ─── Fonts (self-hosted by Next.js, no external requests at runtime) ──
 const inter = Inter({
@@ -58,7 +62,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#F6F6F4',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#1C1C1E' },
+    { media: '(prefers-color-scheme: light)', color: '#F6F6F4' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
@@ -71,8 +78,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

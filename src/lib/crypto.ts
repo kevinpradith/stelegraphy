@@ -1,5 +1,6 @@
 // ─── Caesar Cipher ───────────────────────────────────────────
 export function caesarEncrypt(text: string, shift: number): string {
+  if (!Number.isFinite(shift)) shift = 0;
   shift = ((shift % 26) + 26) % 26;
   return text.replace(/[a-zA-Z]/g, (c) => {
     const base = c >= 'a' ? 97 : 65;
@@ -62,16 +63,16 @@ export function xorEncrypt(text: string, key: string): string {
 }
 export function xorDecrypt(hexText: string, key: string): string {
   if (!key) return hexText;
-  try {
-    const bytes = hexText.trim().split(/\s+/);
-    return bytes
-      .map((h, i) =>
-        String.fromCharCode(parseInt(h, 16) ^ key.charCodeAt(i % key.length)),
-      )
-      .join('');
-  } catch {
-    return 'Invalid XOR hex input';
+  const bytes = hexText.trim().split(/\s+/).filter(Boolean);
+  if (bytes.length === 0) return '';
+  const out: string[] = [];
+  for (let i = 0; i < bytes.length; i++) {
+    const h = bytes[i];
+    if (!/^[0-9a-fA-F]{2}$/.test(h)) return 'Invalid XOR hex input';
+    const byte = parseInt(h, 16);
+    out.push(String.fromCharCode(byte ^ key.charCodeAt(i % key.length)));
   }
+  return out.join('');
 }
 
 // ─── Base64 ──────────────────────────────────────────────────
@@ -107,9 +108,12 @@ export function textToHex(text: string): string {
 }
 export function hexToText(hex: string): string {
   try {
-    const parts = hex.trim().split(/\s+/);
-    if (parts.some((h) => !/^[0-9a-fA-F]{1,4}$/.test(h))) return 'Invalid hex';
-    return parts.map((h) => String.fromCharCode(parseInt(h, 16))).join('');
+    const compact = hex.replace(/\s+/g, '');
+    if (!compact.length) return '';
+    if (compact.length % 2 !== 0) return 'Invalid hex';
+    if (!/^[0-9a-fA-F]+$/.test(compact)) return 'Invalid hex';
+    const pairs = compact.match(/.{2}/g) ?? [];
+    return pairs.map((h) => String.fromCharCode(parseInt(h, 16))).join('');
   } catch {
     return 'Invalid hex';
   }
@@ -123,9 +127,12 @@ export function textToBinary(text: string): string {
 }
 export function binaryToText(bin: string): string {
   try {
-    const parts = bin.trim().split(/\s+/);
-    if (parts.some((b) => !/^[01]{1,16}$/.test(b))) return 'Invalid binary';
-    return parts.map((b) => String.fromCharCode(parseInt(b, 2))).join('');
+    const compact = bin.replace(/\s+/g, '');
+    if (!compact.length) return '';
+    if (!/^[01]+$/.test(compact)) return 'Invalid binary';
+    if (compact.length % 8 !== 0) return 'Invalid binary';
+    const chunks = compact.match(/.{8}/g) ?? [];
+    return chunks.map((b) => String.fromCharCode(parseInt(b, 2))).join('');
   } catch {
     return 'Invalid binary';
   }
@@ -156,13 +163,16 @@ export function textToMorse(text: string): string {
     .join(' ');
 }
 export function morseToText(morse: string): string {
-  return morse
-    .trim()
-    .split(/\s+\/\s+/)
+  const trimmed = morse.trim();
+  if (!trimmed) return '';
+  /* Word breaks: output uses " / "; also accept "/" without extra spaces (pasted text). */
+  return trimmed
+    .split(/\s*\/\s*/)
     .map((word) =>
       word
         .trim()
         .split(/\s+/)
+        .filter(Boolean)
         .map((code) => MORSE_REV[code] ?? '?')
         .join(''),
     )

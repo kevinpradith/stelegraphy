@@ -29,7 +29,19 @@ export default function ParamsBar({
             max={25}
             className="param-input"
             value={shift}
-            onChange={(e) => onShiftChange(Number(e.target.value))}
+            onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === '' || raw === '-') {
+                onShiftChange(0);
+                return;
+              }
+              const n = Number(raw);
+              if (!Number.isFinite(n)) {
+                onShiftChange(0);
+                return;
+              }
+              onShiftChange(Math.min(25, Math.max(-25, Math.round(n))));
+            }}
           />
         </div>
       )}

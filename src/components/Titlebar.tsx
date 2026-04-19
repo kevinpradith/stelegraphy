@@ -1,4 +1,7 @@
+'use client';
+
 import type { CipherDef, Mode } from '@/types';
+import ThemeToggle from './ThemeToggle';
 
 interface TitlebarProps {
   cipher: CipherDef;
@@ -22,12 +25,14 @@ export default function Titlebar({ cipher, mode }: TitlebarProps) {
         <span className="titlebar-cipher">{cipher.label}</span>
       </div>
 
-      {/* Right-side ENC / DEC badge */}
-      <div
-        className={`titlebar-badge${mode === 'encrypt' ? ' is-enc' : ''}`}
-        aria-label={`Mode: ${mode === 'encrypt' ? 'Encrypt' : 'Decrypt'}`}
-      >
-        {mode === 'encrypt' ? 'ENC' : 'DEC'}
+      <div className="titlebar-right">
+        <ThemeToggle />
+        <div
+          className={`titlebar-badge${mode === 'encrypt' ? ' is-enc' : ''}`}
+          aria-label={`Mode: ${mode === 'encrypt' ? 'Encrypt' : 'Decrypt'}`}
+        >
+          {mode === 'encrypt' ? 'ENC' : 'DEC'}
+        </div>
       </div>
     </header>
   );
