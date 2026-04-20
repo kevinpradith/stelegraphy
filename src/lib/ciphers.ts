@@ -4,12 +4,12 @@ export const CIPHERS: ReadonlyArray<CipherDef> = [
 
   {
     id: 'stelegraphy',
-    label: 'Stelegraphy',
-    category: 'Stelegraphy',
+    label: 'Stèlegraphy',
+    category: 'Stèlegraphy',
     description: 'Custom symmetric block cipher that outputs an encrypted ciphertext in Ancient Runes.',
     needsKey: true,
     keyPlaceholder: 'Master Secret Key',
   },
 ] as const;
 
-export const CATEGORIES: ReadonlyArray<Category> = ['Stelegraphy'];
+export const CATEGORIES: ReadonlyArray<Category> = ['Stèlegraphy'];

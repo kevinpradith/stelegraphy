@@ -1,7 +1,7 @@
 // ─── Cipher IDs ──────────────────────────────────────────────
 export type CipherId = 'stelegraphy';
 
-export type Category = 'Stelegraphy';
+export type Category = 'Stèlegraphy';
 
 export type Mode = 'encrypt' | 'decrypt';
 

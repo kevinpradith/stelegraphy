@@ -1,7 +1,7 @@
 export default function Sidebar() {
   return (
-    <aside className="sidebar guide-sidebar" aria-label="Stelegraphy Guide">
-      <div className="sidebar-header">How Stelegraphy Works</div>
+    <aside className="sidebar guide-sidebar" aria-label="Stèlegraphy Guide">
+      <div className="sidebar-header">How Stèlegraphy Works</div>
       
       <div className="guide-content">
         <div className="guide-step">

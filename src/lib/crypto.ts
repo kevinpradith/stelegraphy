@@ -1,7 +1,7 @@
 /**
- * Stelegraphy - Core Cryptographic Mechanism
+ * Stèlegraphy - Core Cryptographic Mechanism
  * 
- * This module defines the custom Stelegraphy cipher. It utilizes a deterministic 
+ * This module defines the custom Stèlegraphy cipher. It utilizes a deterministic 
  * 3-phase transformation process:
  * 1. XOR Masking: The plaintext is scrambled using the provided Master Key.
  * 2. Base64 Normalization: The scrambled bytes are stabilized into a predictable 64-character set.

@@ -17,11 +17,9 @@ export default function Titlebar({ cipher }: TitlebarProps) {
         <span className="dot dot-green" />
       </div>
 
-      {/* Centered app name + cipher */}
+      {/* Centered app name */}
       <div className="titlebar-center">
-        <span className="titlebar-name">Stèle</span>
-        <span className="titlebar-sep">—</span>
-        <span className="titlebar-cipher">{cipher.label}</span>
+        <span className="titlebar-name">Stèlegraphy</span>
       </div>
 
       <div className="titlebar-right">

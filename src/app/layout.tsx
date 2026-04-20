@@ -22,11 +22,11 @@ const jetbrainsMono = JetBrains_Mono({
 // ─── SEO Metadata ────────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
-    default: 'Stèle',
-    template: '%s | Stèle',
+    default: 'Stèlegraphy',
+    template: '%s | Stèlegraphy',
   },
   description:
-    'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher. Runs entirely in your browser.',
+    'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher. Runs entirely in your browser.',
   keywords: [
     'cryptography',
     'cipher',
@@ -35,21 +35,21 @@ export const metadata: Metadata = {
     'stelegraphy',
     'ancient runes cipher',
   ],
-  authors: [{ name: 'Stèle' }],
-  creator: 'Stèle',
+  authors: [{ name: 'Stèlegraphy' }],
+  creator: 'Stèlegraphy',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Stèle',
+    title: 'Stèlegraphy',
     description:
-      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher.',
-    siteName: 'Stèle',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher.',
+    siteName: 'Stèlegraphy',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stèle',
+    title: 'Stèlegraphy',
     description:
-      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher.',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher.',
   },
   robots: {
     index: true,
