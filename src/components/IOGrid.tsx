@@ -27,7 +27,7 @@ export default function IOGrid({
       />
 
       <div className="swap-col">
-        <SwapButton onClick={onSwap} disabled={!output} />
+        <SwapButton onClick={onSwap} disabled={output.length === 0} />
       </div>
 
       <IOPane

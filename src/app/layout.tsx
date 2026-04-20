@@ -22,38 +22,34 @@ const jetbrainsMono = JetBrains_Mono({
 // ─── SEO Metadata ────────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
-    default: 'Stèle — Cipher & Encoding Tool',
+    default: 'Stèle',
     template: '%s | Stèle',
   },
   description:
-    'A minimal, macOS-inspired cryptography tool. Encrypt and decode with Caesar, Vigenère, ROT-13, Atbash, XOR, Base64, Hex, Binary, and Morse code — entirely in your browser.',
+    'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher. Runs entirely in your browser.',
   keywords: [
     'cryptography',
     'cipher',
     'encoder',
     'decoder',
-    'caesar cipher',
-    'vigenere',
-    'base64',
-    'morse code',
-    'hex encoder',
-    'binary',
+    'stelegraphy',
+    'ancient runes cipher',
   ],
   authors: [{ name: 'Stèle' }],
   creator: 'Stèle',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Stèle — Cipher & Encoding Tool',
+    title: 'Stèle',
     description:
-      'A minimal, macOS-inspired cryptography tool. 9 operations, all client-side.',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher.',
     siteName: 'Stèle',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stèle — Cipher & Encoding Tool',
+    title: 'Stèle',
     description:
-      'A minimal, macOS-inspired cryptography tool. 9 operations, all client-side.',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stelegraphy cipher.',
   },
   robots: {
     index: true,

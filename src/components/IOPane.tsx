@@ -50,7 +50,7 @@ export default function IOPane({
           <button
             className="io-action"
             onClick={() => onChange('')}
-            disabled={!value}
+            disabled={value.length === 0}
             aria-label="Clear input"
           >
             Clear
@@ -61,7 +61,7 @@ export default function IOPane({
           <button
             className={`io-action${copied ? ' is-copied' : ''}`}
             onClick={handleCopy}
-            disabled={!value}
+            disabled={value.length === 0}
             aria-label="Copy output"
           >
             {copied ? '✓ Copied' : 'Copy'}
@@ -81,7 +81,7 @@ export default function IOPane({
         spellCheck={false}
         autoComplete="off"
         autoCorrect="off"
-        autoCapitalize="off"
+        autoCapitalize="none"
       />
 
       {/* ── Footer stats */}

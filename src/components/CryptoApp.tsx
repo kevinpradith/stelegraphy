@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { CIPHERS, CATEGORIES } from '@/lib/ciphers';
+import { CIPHERS } from '@/lib/ciphers';
 import { process } from '@/lib/process';
 import type { CipherId, Mode } from '@/types';
 import Titlebar from './Titlebar';
@@ -16,22 +16,16 @@ import IOGrid from './IOGrid';
  * child components inherit the client context without needing their own directive.
  */
 export default function CryptoApp() {
-  const [selected, setSelected] = useState<CipherId>('caesar');
+  const [selected] = useState<CipherId>('stelegraphy');
   const [mode, setMode] = useState<Mode>('encrypt');
   const [input, setInput] = useState('');
-  const [shift, setShift] = useState(3);
   const [key, setKey] = useState('');
 
   // Derived state
   const cipher = CIPHERS.find((c) => c.id === selected)!;
   const output = input
-    ? process(selected, input, mode, { shift, key })
+    ? process(selected, input, mode, { key })
     : '';
-
-  const handleSelectCipher = useCallback((id: CipherId) => {
-    setSelected(id);
-    setInput('');
-  }, []);
 
   const handleSwap = useCallback(() => {
     if (!output) return;
@@ -41,20 +35,14 @@ export default function CryptoApp() {
     }
   }, [cipher.symmetric, output]);
 
-  // Display mode: symmetric ciphers don't have a meaningful mode
-  const displayMode: Mode = cipher.symmetric ? 'encrypt' : mode;
+
 
   return (
     <div className="app">
-      <Titlebar cipher={cipher} mode={displayMode} />
+      <Titlebar cipher={cipher} />
 
       <div className="layout">
-        <Sidebar
-          ciphers={CIPHERS}
-          categories={CATEGORIES}
-          selected={selected}
-          onSelect={handleSelectCipher}
-        />
+        <Sidebar />
 
         <main className="main">
           {/* ── Panel header: title + mode toggle */}
@@ -69,13 +57,11 @@ export default function CryptoApp() {
             )}
           </div>
 
-          {/* ── Optional params (shift / key) */}
-          {(cipher.needsShift || cipher.needsKey) && (
+          {/* ── Optional params (key) */}
+          {cipher.needsKey && (
             <ParamsBar
               cipher={cipher}
-              shift={shift}
               keyValue={key}
-              onShiftChange={setShift}
               onKeyChange={setKey}
             />
           )}

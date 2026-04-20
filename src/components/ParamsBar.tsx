@@ -2,55 +2,33 @@ import type { CipherDef } from '@/types';
 
 interface ParamsBarProps {
   cipher: CipherDef;
-  shift: number;
   keyValue: string;
-  onShiftChange: (shift: number) => void;
   onKeyChange: (key: string) => void;
 }
 
 export default function ParamsBar({
   cipher,
-  shift,
   keyValue,
-  onShiftChange,
   onKeyChange,
 }: ParamsBarProps) {
   return (
     <div className="params-bar">
-      {cipher.needsShift && (
-        <div className="param-field">
-          <label className="param-label" htmlFor="param-shift">
-            Shift
-          </label>
-          <input
-            id="param-shift"
-            type="number"
-            min={-25}
-            max={25}
-            className="param-input"
-            value={shift}
-            onChange={(e) => {
-              const raw = e.target.value;
-              if (raw === '' || raw === '-') {
-                onShiftChange(0);
-                return;
-              }
-              const n = Number(raw);
-              if (!Number.isFinite(n)) {
-                onShiftChange(0);
-                return;
-              }
-              onShiftChange(Math.min(25, Math.max(-25, Math.round(n))));
-            }}
-          />
-        </div>
-      )}
-
       {cipher.needsKey && (
         <div className="param-field">
-          <label className="param-label" htmlFor="param-key">
-            Key
-          </label>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <label className="param-label" htmlFor="param-key">
+              Key
+            </label>
+            <button
+              className="io-action"
+              onClick={() => onKeyChange('')}
+              disabled={keyValue.length === 0}
+              aria-label="Clear key"
+              type="button"
+            >
+              Clear
+            </button>
+          </div>
           <input
             id="param-key"
             type="text"

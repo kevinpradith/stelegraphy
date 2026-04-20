@@ -1,14 +1,13 @@
 'use client';
 
-import type { CipherDef, Mode } from '@/types';
+import type { CipherDef } from '@/types';
 import ThemeToggle from './ThemeToggle';
 
 interface TitlebarProps {
   cipher: CipherDef;
-  mode: Mode;
 }
 
-export default function Titlebar({ cipher, mode }: TitlebarProps) {
+export default function Titlebar({ cipher }: TitlebarProps) {
   return (
     <header className="titlebar" role="banner">
       {/* macOS traffic lights */}
@@ -27,12 +26,6 @@ export default function Titlebar({ cipher, mode }: TitlebarProps) {
 
       <div className="titlebar-right">
         <ThemeToggle />
-        <div
-          className={`titlebar-badge${mode === 'encrypt' ? ' is-enc' : ''}`}
-          aria-label={`Mode: ${mode === 'encrypt' ? 'Encrypt' : 'Decrypt'}`}
-        >
-          {mode === 'encrypt' ? 'ENC' : 'DEC'}
-        </div>
       </div>
     </header>
   );

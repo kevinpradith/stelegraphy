@@ -1,16 +1,7 @@
 // ─── Cipher IDs ──────────────────────────────────────────────
-export type CipherId =
-  | 'caesar'
-  | 'vigenere'
-  | 'rot13'
-  | 'atbash'
-  | 'xor'
-  | 'base64'
-  | 'hex'
-  | 'binary'
-  | 'morse';
+export type CipherId = 'stelegraphy';
 
-export type Category = 'Classical' | 'Encoding';
+export type Category = 'Stelegraphy';
 
 export type Mode = 'encrypt' | 'decrypt';
 
@@ -20,15 +11,13 @@ export interface CipherDef {
   readonly label: string;
   readonly category: Category;
   readonly description: string;
-  /** ROT-13 and Atbash are self-inverse; no mode toggle shown. */
+  /** If true, the cipher uses the exact same operation for both encryption and decryption. */
   readonly symmetric?: boolean;
-  readonly needsShift?: boolean;
   readonly needsKey?: boolean;
   readonly keyPlaceholder?: string;
 }
 
 // ─── Process Parameters ───────────────────────────────────────
 export interface ProcessParams {
-  shift: number;
   key: string;
 }
