@@ -110,6 +110,16 @@ body {
   height: 100%;
 }
 
+/* On desktop the app floats — allow the page to scroll if viewport is short */
+@media (min-width: 1024px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+  }
+}
+
 html {
   color-scheme: light;
 }
@@ -169,6 +179,15 @@ body {
   transition: background-color 400ms var(--ease-out), box-shadow 400ms var(--ease-out), border-color 400ms var(--ease-out);
 }
 
+/* Mobile: full viewport height, no scroll on the app shell */
+@media (max-width: 1023px) {
+  .app {
+    height: 100svh;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
 @media (min-width: 1024px) {
 
   html[data-theme='light'] body,
@@ -186,13 +205,16 @@ body {
 
   .app {
     max-width: 1200px;
-    height: 88vh;
+    /* Sit comfortably in the viewport; shrink-wraps when screen is short */
+    height: auto;
+    min-height: min(88vh, 640px);
+    max-height: 88vh;
     margin: 6vh auto;
     border-radius: 12px;
     border: 1px solid var(--border);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 30px 80px rgba(0, 0, 0, 0.2);
     /* Subtle white top-edge highlight for that 3D glass edge */
     box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.4), 0 30px 80px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
   }
 
   [data-theme='dark'] .app {

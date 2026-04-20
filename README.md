@@ -1,53 +1,58 @@
-# Stèle
+# Stèlegraphy
 
-**Live Deployment:** [https://stele-gray.vercel.app/](https://stele-gray.vercel.app/)
+**Live Deployment:** [https://stelegraphy.vercel.app/](https://stelegraphy.vercel.app/)
 
-Stèle is a minimal, visually focused cryptographic application built on Next.js. It is specifically designed to demonstrate the "Stelegraphy" cipher—a custom algorithm that algorithmically translates encoded messages into highly aesthetic Ancient Runic inscriptions.
+Stèlegraphy is a highly specialized, client-side cryptographic application built on Next.js. It operates as the exclusive frontend and algorithmic engine for the "Stèlegraphy" cipher—a custom-designed symmetric block cipher that translates raw textual data into aesthetically profound Ancient Runic inscriptions.
 
-Constructed with a premium, responsive, macOS-inspired monochrome interface, Stèle operates entirely on the client side without relying on external cryptography dependencies.
+Constructed with an uncompromising focus on premium user experience, the application utilizes a macOS-inspired monochrome design language, featuring multi-layered glassmorphism, native Apple typography rendering fallback, and high-fidelity physics-based interactions.
 
-## Architecture & Features
+## The Cryptographic Mechanism
 
-- **Exclusive Focus on Stelegraphy**: The application is strictly optimized for a single cryptographic operation, presenting a streamlined layout devoid of unnecessary routing.
-- **Client-Side Operations**: All encryption and decryption logic executes within the browser, ensuring messages remain inaccessible to any servers.
-- **Premium Fluid UI**: The interface utilizes strict macOS-inspired design principles, including multi-layered glassmorphism, dynamic window scaling based on viewport constraints, precision San Francisco typography fallback, and authentic spring-physics animations.
-- **Fully Responsive Layout**: Intelligent CSS grids map seamlessly from a dual-pane desktop floating window layout down to a touch-optimized swiping carousel for mobile environments.
+Stèlegraphy circumvents complex, opaque matrix processing in favor of a deterministic, four-phase mathematical transformation optimized for extreme visual distinctiveness.
 
-## The Stelegraphy Algorithm
+1. **Phase 1: Serialization**
+   The application intercepts the plaintext input and sanitizes it via URI-safe UTF-8 encoding. This procedure guarantees structural integrity across heterogeneous data, including complex symbols and ideograms.
 
-Stelegraphy eschews complex matrix rotations for a highly explainable, three-phase mathematical translation that prioritizes visual impact and uniqueness.
+2. **Phase 2: XOR Masking**
+   The core encryption involves a sequential, bitwise Exclusive-OR (XOR) operation. Each serialized character is masked against a user-provided cyclic Master Key, thoroughly obscuring the original byte patterns into randomized data.
 
-1. **XOR Masking**
-The engine ingests the raw UTF-8 serialized message and performs a bitwise Exclusive-OR (XOR) operation sequentially against characters of a user-provided Master Key. This masks the original semantic meaning into randomized bytes.
+3. **Phase 3: Base64 Normalization**
+   To enforce structural consistency, the randomized XOR bytes are aggressively encoded into a standard Base64 representation. This normalization strictly confines the volatile binary output to a predictable 64-character alphanumeric domain.
 
-2. **Base64 Normalization**
-The masked byte array is encoded into a standard Base64 representation. This normalization guarantees that the disorganized binary data is forced into a predictable 64-character alphanumeric domain.
+4. **Phase 4: Runic Translation**
+   Operating on the normalized Base64 string, the cipher executes a strict one-to-one character mapping. The 64 standard characters are translated deterministically into 64 distinct Ancient Runic alphabets (extrapolated from Elder Futhark variants), producing an intricately formatted, presentation-ready cryptographic construct.
 
-3. **Runic Translation**
-Each character in the resulting Base64 string is deterministically mapped one-to-one into 64 distinct Ancient Runic alphabets (Elder Futhark variants), delivering a visually compelling, presentation-ready cryptographic output.
+*Decryption relies on the symmetric nature of the XOR logic (`A ^ B ^ B = A`), flawlessly reverting the Ancient Runes back into the initial unencrypted plaintext, conditional on the exact Master Key being provided.*
 
-## Technology Stack
+## Interface Architecture
 
-- **Framework**: Next.js 15 (App Router, Turbopack enabled)
+- **Absolute Client-Side Processing**: Designed for utmost privacy. All serialization, scrambling, and mapping operations execute exclusively within the client's browser environment. Zero external requests are made; zero payload data is transmitted.
+- **Dynamic Fluid Grids**: The application architecture scales intuitively. On desktop monitors, it renders as a constrained floating window utilizing shadow depth structures. On mobile devices, the environment fluidly reassembles into a responsive, full-viewport columnar layout featuring swipeable instructional components to conserve vertical space.
+- **Micro-Interaction Fidelity**: Every state change employs highly calibrated CSS transitions replicating exact iOS/macOS spring curves and instantaneous color fades, delivering a tactile, highly responsive user experience. 
+
+## Technology Blueprint
+
+- **Core Framework**: Next.js 16 (App Router)
+- **Compiler**: Turbopack
 - **Library**: React 19
-- **Language**: TypeScript
-- **Styling**: Vanilla CSS (CSS Variables, Flexbox, Grid, Media Queries)
-- **Deployment**: Configured for Vercel
+- **Scripting**: Strictly Typed TypeScript
+- **Styling Architecture**: Zero-dependency CSS Variables and Flexbox/Grid topologies
+- **Deployment Platform**: Vercel
 
-## Local Development Environment
+## Local Initialization
 
-Ensure Node.js is installed, then proceed with the standard package installation.
+Ensure Node.js is actively installed on your system.
 
 ```bash
-# Install dependencies
+# Clone the repository and install dependency matrices
 npm install
 
-# Run the development server with Turbopack
+# Initialize the development server backed by Turbopack
 npm run dev
 ```
 
-Navigate to `http://localhost:3000` to interact with the application.
+Proceed to `http://localhost:3000` to interact with the local uncompiled instance.
 
-## License
+## Licensing
 
-This project is intended for educational demonstrations in custom client-side ciphers and modern interface design.
+This repository serves as an educational and structural demonstration of custom cryptographic integration paired with top-tier modern interface design.
