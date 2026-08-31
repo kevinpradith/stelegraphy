@@ -19,14 +19,24 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+// ─── Site URL & Base ─────────────────────────────────────────
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'https://stelegraphy.vercel.app';
+
 // ─── SEO Metadata ────────────────────────────────────────────
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Stèlegraphy',
+    default: 'Stèlegraphy — Visual Cipher & Cryptography Tool',
     template: '%s | Stèlegraphy',
   },
   description:
-    'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher. Runs entirely in your browser.',
+    'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher. Encode and decode ancient rune-like glyphs entirely in your browser.',
   keywords: [
     'cryptography',
     'cipher',
@@ -34,22 +44,35 @@ export const metadata: Metadata = {
     'decoder',
     'stelegraphy',
     'ancient runes cipher',
+    'visual cipher',
+    'steganography',
   ],
   authors: [{ name: 'Stèlegraphy' }],
   creator: 'Stèlegraphy',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Stèlegraphy',
+    url: siteUrl,
+    title: 'Stèlegraphy — Visual Cipher & Cryptography Tool',
     description:
-      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher.',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher. Encode and decode ancient rune-like glyphs entirely in your browser.',
     siteName: 'Stèlegraphy',
+    images: [
+      {
+        url: '/opengraph/stelegraphy.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Stèlegraphy Preview',
+        type: 'image/webp',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stèlegraphy',
+    title: 'Stèlegraphy — Visual Cipher & Cryptography Tool',
     description:
-      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher.',
+      'A minimal, macOS-inspired cryptography tool designed specifically for the visual Stèlegraphy cipher. Encode and decode ancient rune-like glyphs entirely in your browser.',
+    images: ['/opengraph/stelegraphy.webp'],
   },
   robots: {
     index: true,

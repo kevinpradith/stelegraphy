@@ -1,6 +1,6 @@
 # Stèlegraphy
 
-**Live Deployment:** [https://stelegraphy.vercel.app/](https://stelegraphy.vercel.app/)
+**Live Deployment:** [https://stelegraphy.kevinpradith.my.id/](https://stelegraphy.kevinpradith.my.id/)
 
 Stèlegraphy is a highly specialized, client-side cryptographic application built on Next.js. It operates as the exclusive frontend and algorithmic engine for the "Stèlegraphy" cipher—a custom-designed symmetric block cipher that translates raw textual data into aesthetically profound Ancient Runic inscriptions.
 
