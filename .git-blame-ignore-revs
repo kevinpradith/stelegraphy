@@ -1,0 +1,7 @@
+# Commits that changed how the code is written and not what it does. GitHub
+# skips them in the blame view on its own; locally it takes one setting:
+#
+#     git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: format the tree with Prettier
+c0a7198beaaf86c428fdb0967ec62803289dd884
