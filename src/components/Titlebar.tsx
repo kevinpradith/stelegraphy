@@ -1,13 +1,8 @@
-'use client';
+'use client'
 
-import type { CipherDef } from '@/types';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from './ThemeToggle'
 
-interface TitlebarProps {
-  cipher: CipherDef;
-}
-
-export default function Titlebar({ cipher }: TitlebarProps) {
+export default function Titlebar() {
   return (
     <header className="titlebar" role="banner">
       {/* macOS traffic lights */}
@@ -26,5 +21,5 @@ export default function Titlebar({ cipher }: TitlebarProps) {
         <ThemeToggle />
       </div>
     </header>
-  );
+  )
 }
