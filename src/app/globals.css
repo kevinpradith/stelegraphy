@@ -3,6 +3,22 @@
    Monochrome macOS-inspired aesthetic
    ══════════════════════════════════════════════════════════════ */
 
+/* ─── Runic face ────────────────────────────────────────────────
+   The output of this cipher is Elder Futhark, and most systems have no
+   font for it: Linux and Android ship none by default, so the runes
+   arrive as empty boxes. Noto Sans Runic, subset to the 64 glyphs the
+   cipher uses plus the padding mark, is 2.4 KB and self-hosted, so no
+   request leaves the origin and the CSP needs no exception.
+   SIL Open Font License 1.1, text in public/fonts/OFL.txt. */
+@font-face {
+  font-family: 'Noto Sans Runic Subset';
+  src: url('/fonts/noto-sans-runic-subset.woff2') format('woff2');
+  font-display: swap;
+  /* Only the Runic block, so this face is fetched only by a page that
+     actually shows runes and never overrides the Latin text. */
+  unicode-range: U+16A0-16DF, U+16EB;
+}
+
 /* ─── Reset ─────────────────────────────────────────────────── */
 *,
 *::before,
@@ -73,7 +89,7 @@ textarea {
 
   /* ── Typography (native Mac SF Pro prioritized) */
   --sans: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
-  --mono: 'SF Mono', var(--font-mono, 'JetBrains Mono', monospace);
+  --mono: 'SF Mono', var(--font-mono, 'JetBrains Mono', monospace), 'Noto Sans Runic Subset';
 
   /* Focus ring (monochrome) */
   --focus: rgba(14, 14, 13, 0.35);
