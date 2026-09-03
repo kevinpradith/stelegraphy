@@ -9,6 +9,10 @@ updates:
     groups:
       dependencies:
         patterns: ['*']
+        # Majors are left out of the group so that one breaking bump cannot
+        # hold eight harmless ones hostage. They still arrive, one pull
+        # request each, to be looked at rather than merged on a badge.
+        update-types: ['minor', 'patch']
     open-pull-requests-limit: 5
     ignore:
       # @types/node is pinned to the oldest Node this supports, so that using an
@@ -16,6 +20,14 @@ updates:
       # than something a person on 22 never sees. Bumping it would quietly lift
       # the floor, so the major is not wanted here.
       - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      # TypeScript 7 is the native port, and typescript-eslint refuses to load
+      # against it: "typescript-eslint does not support TS 7.0". Since
+      # eslint-config-next pulls typescript-eslint in, taking the major breaks
+      # npm run lint outright rather than producing findings. Lift this once
+      # https://github.com/typescript-eslint/typescript-eslint/issues/10940
+      # closes.
+      - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
