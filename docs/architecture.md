@@ -93,9 +93,27 @@ data and for the theme script above, and the second in development. Tightening i
 means a per-request nonce, and a nonce means the page can no longer be static,
 which would trade the property that makes the privacy claim simple for a
 directive that guards against injecting a script into a page that has no server
-to inject one through. Fonts are self-hosted by `next/font` rather than fetched
-from a font CDN, so `font-src 'self'` holds without exceptions and no request
-announces a visit.
+to inject one through. Fonts are self-hosted rather than fetched from a font
+CDN, so `font-src 'self'` holds without exceptions and no request announces a
+visit.
+
+## The runes need a font, and most systems have none
+
+Elder Futhark lives at U+16A0 to U+16F8, and nothing guarantees a reader has a
+face for it. Windows has Segoe UI Historic and macOS has coverage, but a stock
+Linux or Android system has neither, and there the entire output of this cipher
+arrives as a row of empty boxes: the one thing the app exists to show.
+
+So the block travels with the page. `public/fonts/noto-sans-runic-subset.woff2`
+is Noto Sans Runic cut down to the 64 glyphs the table uses plus the padding
+mark, which is 2.4 KB, and `globals.css` declares it with
+`unicode-range: U+16A0-16DF, U+16EB`. That range is what keeps it honest: the
+face is fetched only by a page actually showing runes, and it can never
+override a Latin character. It sits at the end of the `--mono` stack, so a
+system that does have a runic face is free to use its own.
+
+The font is under the SIL Open Font License 1.1, with the text beside it in
+`public/fonts/OFL.txt`.
 
 ## Deployment
 

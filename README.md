@@ -21,9 +21,19 @@ Try it at **[stelegraphy.kevinpradith.my.id](https://stelegraphy.kevinpradith.my
 > with the attacks named.
 
 <img
-  alt="The Stèlegraphy window: a plaintext pane on the left, a pane of Elder Futhark runes on the right, and the Master Key bar between them."
-  src="public/opengraph/stelegraphy.webp"
+  alt="The Stèlegraphy window in its dark theme: the guide down the left, Meet me at dawn typed into the input pane, and the same message as Elder Futhark runes in the output pane, under the key rune."
+  src="docs/images/window-dark.webp"
 />
+
+<img
+  alt="The same window in its light theme, showing the same message and the same runes."
+  src="docs/images/window-light.webp"
+/>
+
+<sup>Both are captures of the built application in Chromium, cropped to the
+window and written out as WebP. They are pictures of the thing that ships, not
+mock-ups, and the runes in them are what <code>Meet me at dawn</code> actually
+encodes to under the key <code>rune</code>.</sup>
 
 ## Contents
 
@@ -152,8 +162,9 @@ fetch, no analytics, no API route, and no server component that sees an input.
 That is backed by a `Content-Security-Policy` in
 [`next.config.ts`](next.config.ts) with `connect-src 'self'`, so the page cannot
 reach another origin even if a dependency were compromised, and `frame-ancestors
-'none'` alongside `X-Frame-Options: DENY`. Fonts are self-hosted by `next/font`,
-so there is no request to a font CDN to leak a visit either. The headers, and the
+'none'` alongside `X-Frame-Options: DENY`. Every font is served from this
+origin, the Latin faces by `next/font` and the runes by a 2.4 KB subset in
+`public/fonts/`, so there is no request to a font CDN to leak a visit either. The headers, and the
 one directive deliberately left loose, are in
 [docs/architecture.md](docs/architecture.md).
 
@@ -168,7 +179,9 @@ src/components/   the window: title bar, sidebar, mode toggle, key bar, I/O pane
 src/contexts/     the theme provider, paired with the pre-paint script in layout.tsx
 src/types/        the shared types, and the union that keeps the dispatch honest
 test/             node:test over the cipher, no framework
+public/fonts/     Noto Sans Runic, subset to the 64 glyphs the cipher uses
 docs/             the cipher in full, and the architecture
+docs/images/      the README's screenshots, kept out of public/ so they are not served
 ```
 
 ```sh

@@ -10,6 +10,24 @@ breaking change and is called one here.
 
 ## [Unreleased]
 
+### Added
+
+- **The runes ship with the page.** Elder Futhark is not in the default font
+  set of a stock Linux or Android system, so the entire output of the cipher
+  arrived there as empty boxes. Noto Sans Runic, subset to the 64 glyphs the
+  table uses plus the padding mark, is 2.4 KB, self-hosted, and declared with
+  `unicode-range: U+16A0-16DF, U+16EB` so it is fetched only by a page showing
+  runes and can never override Latin text. SIL Open Font License 1.1.
+- **Two screenshots of the running application** in the README, dark and light,
+  captured from the built app in Chromium rather than mocked up.
+
+### Fixed
+
+- **The panel header no longer calls the transform a block cipher.** It read
+  "Custom symmetric block cipher that outputs an encrypted ciphertext in Ancient
+  Runes", so the same screen claimed encryption at the top while the sidebar
+  note under it said the opposite.
+
 ## [0.2.0] - 2026-09-03
 
 The documentation stops overselling the cipher, and there is now something
