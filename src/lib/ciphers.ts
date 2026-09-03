@@ -5,8 +5,7 @@ export const CIPHERS: ReadonlyArray<CipherDef> = [
     id: 'stelegraphy',
     label: 'Stèlegraphy',
     category: 'Stèlegraphy',
-    description:
-      'Custom symmetric block cipher that outputs an encrypted ciphertext in Ancient Runes.',
+    description: 'A repeating-key XOR over Base64, written out in 64 Elder Futhark runes.',
     needsKey: true,
     keyPlaceholder: 'Master Secret Key',
   },
