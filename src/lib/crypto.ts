@@ -1,101 +1,77 @@
 /**
- * This module defines the custom Stèlegraphy cipher. It utilizes a deterministic 
- * 3-phase transformation process:
- * 1. XOR Masking: The plaintext is scrambled using the provided Master Key.
- * 2. Base64 Normalization: The scrambled bytes are stabilized into a predictable 64-character set.
- * 3. Runic Translation: The Base64 output is mapped deterministically into visual Ancient Runes.
+ * The Stèlegraphy cipher.
+ *
+ * Four deterministic phases, each reversible on its own:
+ *
+ *   1. Serialization        plaintext -> URI-safe UTF-8, so any codepoint survives
+ *   2. XOR masking          every byte XORed against a repeating Master Key
+ *   3. Base64 normalization arbitrary bytes -> a known 64-character alphabet
+ *   4. Runic translation    those 64 characters -> 64 Elder Futhark runes
+ *
+ * Phase 2 is a Vigenere cipher over bytes and phases 3 and 4 are public
+ * encodings, so this obscures text rather than protecting it. See docs/cipher.md
+ * for how it is broken and README.md for what that means. It is a toy.
  */
-const B64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-const RUNE_CHARS = "ᚠᚡᚢᚣᚤᚥᚦᚧᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚲᚳᚴᚵᚶᚷᚸᚹᚺᚻᚼᚽᚾᚿᛀᛁᛂᛃᛄᛅᛆᛇᛈᛉᛊᛋᛌᛍᛎᛏᛐᛑᛒᛓᛔᛕᛖᛗᛘᛙᛚᛛᛜᛝᛞᛟ";
+
+const B64_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+const RUNE_CHARS = 'ᚠᚡᚢᚣᚤᚥᚦᚧᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚲᚳᚴᚵᚶᚷᚸᚹᚺᚻᚼᚽᚾᚿᛀᛁᛂᛃᛄᛅᛆᛇᛈᛉᛊᛋᛌᛍᛎᛏᛐᛑᛒᛓᛔᛕᛖᛗᛘᛙᛚᛛᛜᛝᛞᛟ'
+
+/** Base64 pads with '='; the rune alphabet has 64 slots, so padding needs a 65th glyph. */
+const PAD_RUNE = '᛫'
+
+/** Used when the key box is left empty, so the app still round-trips. */
+const DEFAULT_KEY = 'stele'
 
 function b64ToRunes(b64: string): string {
-  return b64.replace(/./g, char => {
-    if (char === '=') return '᛫';
-    const idx = B64_CHARS.indexOf(char);
-    return idx >= 0 ? RUNE_CHARS[idx] : char;
-  });
+  return b64.replace(/./g, (char) => {
+    if (char === '=') return PAD_RUNE
+    const idx = B64_CHARS.indexOf(char)
+    return idx >= 0 ? RUNE_CHARS[idx] : char
+  })
 }
 
 function runesToB64(runes: string): string {
-  return Array.from(runes.trim()).map(char => {
-    if (char === '᛫') return '=';
-    const idx = RUNE_CHARS.indexOf(char);
-    return idx >= 0 ? B64_CHARS[idx] : char;
-  }).join('');
+  return Array.from(runes.trim())
+    .map((char) => {
+      if (char === PAD_RUNE) return '='
+      const idx = RUNE_CHARS.indexOf(char)
+      return idx >= 0 ? B64_CHARS[idx] : char
+    })
+    .join('')
 }
 
-class Stelegraphy {
-  private key: string;
-
-  constructor(key: string) {
-    this.key = key || "stele";
-  }
-
-  encrypt(plaintext: string): string {
-    // Phase 1: Serialization
-    // Convert plaintext into URI-safe UTF-8 format to safely handle emojis and special characters.
-    const encodedStr = encodeURIComponent(plaintext);
-
-    // Phase 2: XOR Masking
-    // Perform a bitwise Exclusive-OR (XOR) operation sequentially matching each character of 
-    // the serialized string against the cyclic Master Key.
-    const xored = Array.from(encodedStr).map((char, i) => {
-      const charCode = char.charCodeAt(0);
-      const keyChar = this.key.charCodeAt(i % this.key.length);
-      return String.fromCharCode(charCode ^ keyChar);
-    }).join('');
-    
-    // Phase 3: Base64 Normalization
-    // Encode the randomized XOR bytes into standard Base64 to restrict the output to 64 known characters.
-    const b64 = btoa(xored);
-
-    // Phase 4: Runic Translation
-    // Map the standard Base64 characters to their visually aesthetic Ancient Runic equivalents.
-    return b64ToRunes(b64);
-  }
-
-  decrypt(runesStr: string): string {
-    try {
-      // Phase 1: Base64 Reversion
-      // Revert the visually aesthetic Ancient Runes back into standard Base64 string data.
-      const b64 = runesToB64(runesStr);
-
-      // Phase 2: Base64 Decoding
-      // Decode the Base64 format back into the raw XOR-scrambled bytes.
-      const xored = atob(b64);
-
-      // Phase 3: XOR Unmasking
-      // Run the exact same XOR operation using the exact same Master Key.
-      // Since XOR is symmetric (A ^ B ^ B = A), this reverts the text back to URI-encoded state.
-      const decodedStr = Array.from(xored).map((char, i) => {
-        const charCode = char.charCodeAt(0);
-        const keyChar = this.key.charCodeAt(i % this.key.length);
-        return String.fromCharCode(charCode ^ keyChar);
-      }).join('');
-      
-      // Phase 4: Deserialization
-      // Safely decode the URI string back into the original human-readable plaintext.
-      return decodeURIComponent(decodedStr);
-    } catch {
-      throw new Error("Invalid Runic ciphertext or incorrect Master Key.");
-    }
-  }
+/**
+ * XOR each character against the key, cycling the key. Its own inverse, which is
+ * the whole reason one function serves both directions.
+ *
+ * The key byte is masked to 8 bits: a key holding a character above U+00FF would
+ * otherwise push the result past 255, and btoa refuses anything wider than a byte.
+ * Masking costs nothing here because the input is URI-encoded and so already ASCII.
+ */
+function xorWithKey(text: string, key: string): string {
+  return Array.from(text)
+    .map((char, i) =>
+      String.fromCharCode(char.charCodeAt(0) ^ (key.charCodeAt(i % key.length) & 0xff)),
+    )
+    .join('')
 }
 
 export function stelegraphyEncrypt(text: string, key: string): string {
-  if (!text) return '';
+  if (!text) return ''
   try {
-    return new Stelegraphy(key).encrypt(text);
+    return b64ToRunes(btoa(xorWithKey(encodeURIComponent(text), key || DEFAULT_KEY)))
   } catch (err) {
-    return `Encryption Error: ${err instanceof Error ? err.message : String(err)}`;
+    return `Encryption Error: ${err instanceof Error ? err.message : String(err)}`
   }
 }
 
 export function stelegraphyDecrypt(text: string, key: string): string {
-  if (!text) return '';
+  if (!text) return ''
   try {
-    return new Stelegraphy(key).decrypt(text);
-  } catch (err) {
-    return `Decryption Error: ${err instanceof Error ? err.message : String(err)}`;
+    return decodeURIComponent(xorWithKey(atob(runesToB64(text)), key || DEFAULT_KEY))
+  } catch {
+    // A wrong key and a damaged input fail the same way, and neither is worth
+    // distinguishing: both mean the runes on screen did not come back.
+    return 'Decryption Error: Invalid Runic ciphertext or incorrect Master Key.'
   }
 }
