@@ -1,0 +1,51 @@
+name: Bug report
+description: Something does not work the way the documentation says it does.
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The cipher being breakable is not a bug. It is described in
+        [docs/cipher.md](https://github.com/kevinpradith/stelegraphy/blob/main/docs/cipher.md)
+        and is what a repeating-key XOR is. Anything else, please carry on.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce it
+      description: |
+        The exact input, the exact key, and the mode. If the input is private,
+        a made-up one that fails the same way is more useful than a description.
+      placeholder: |
+        1. Key: rune
+        2. Mode: encrypt
+        3. Input: Meet me at dawn
+        4. Output pane shows ...
+    validations:
+      required: true
+
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: The deployed site, or a local build. Browser and version.
+      placeholder: stelegraphy.kevinpradith.my.id, Firefox 143
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Anything in the browser console
+      description: Paste it as text rather than a screenshot, so it can be searched.
+      render: text
+    validations:
+      required: false

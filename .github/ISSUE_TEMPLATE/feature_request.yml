@@ -1,0 +1,33 @@
+name: Feature request
+description: Something the app should do and does not.
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Two requests are already answered: real encryption belongs in a
+        different program built on `crypto.subtle`, and the deliberate limits in
+        the README say why there is no file input and no URL sharing.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you were trying to do
+      description: The situation, rather than the feature. What was in your way?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried, or considered
+      description: Including doing nothing, if that is nearly good enough.
+    validations:
+      required: false

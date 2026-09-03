@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # So a dependency that breaks the build is found before someone else finds it.
+  schedule:
+    - cron: '0 6 * * 1'
+
+# A second push to the same branch makes the first run pointless.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege for the token every step inherits. Nothing here writes.
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor from package.json engines, and current.
+        node: ['22.18', '24']
+    steps:
+      # Actions are pinned to a commit, not a tag. A tag is a moving pointer,
+      # and moving one is exactly how tj-actions/changed-files was turned into
+      # a secret exfiltrator across 23,000 repositories in March 2025
+      # (CVE-2025-30066). Dependabot still bumps these; it rewrites the comment
+      # with the version it moved to.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The workflow token is written into .git/config unless this is set,
+          # where anything running later in the job can read it.
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - run: npm run lint
+
+      # Formatting is checked rather than applied, so a pull request is told
+      # what to run instead of having its diff rewritten under it.
+      - run: npm run format:check
+
+      # Compiles the cipher with tsc first, so this does not depend on Node's
+      # built-in type stripping being present in the runner's build.
+      - run: npm test
+
+      - run: npm run build
