@@ -1,16 +1,12 @@
-import type { CipherDef } from '@/types';
+import type { CipherDef } from '@/types'
 
 interface ParamsBarProps {
-  cipher: CipherDef;
-  keyValue: string;
-  onKeyChange: (key: string) => void;
+  cipher: CipherDef
+  keyValue: string
+  onKeyChange: (key: string) => void
 }
 
-export default function ParamsBar({
-  cipher,
-  keyValue,
-  onKeyChange,
-}: ParamsBarProps) {
+export default function ParamsBar({ cipher, keyValue, onKeyChange }: ParamsBarProps) {
   return (
     <div className="params-bar">
       {cipher.needsKey && (
@@ -43,5 +39,5 @@ export default function ParamsBar({
         </div>
       )}
     </div>
-  );
+  )
 }

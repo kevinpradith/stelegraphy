@@ -1,14 +1,14 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react'
 
 interface IOPaneProps {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder: string;
-  isReadonly: boolean;
-  showWordCount?: boolean;
-  showCopy?: boolean;
+  id: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  placeholder: string
+  isReadonly: boolean
+  showWordCount?: boolean
+  showCopy?: boolean
 }
 
 export default function IOPane({
@@ -21,22 +21,20 @@ export default function IOPane({
   showWordCount,
   showCopy,
 }: IOPaneProps) {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false)
 
-  const wordCount = value.trim()
-    ? value.trim().split(/\s+/).length
-    : 0;
+  const wordCount = value.trim() ? value.trim().split(/\s+/).length : 0
 
   const handleCopy = useCallback(async () => {
-    if (!value) return;
+    if (!value) return
     try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      await navigator.clipboard.writeText(value)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
     } catch {
       // Clipboard API unavailable — silently fail
     }
-  }, [value]);
+  }, [value])
 
   return (
     <div className="io-panel">
@@ -87,10 +85,8 @@ export default function IOPane({
       {/* ── Footer stats */}
       <div className="io-footer">
         <span className="io-stat">{value.length} chars</span>
-        {showWordCount && (
-          <span className="io-stat">{wordCount} words</span>
-        )}
+        {showWordCount && <span className="io-stat">{wordCount} words</span>}
       </div>
     </div>
-  );
+  )
 }

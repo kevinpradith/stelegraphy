@@ -1,8 +1,8 @@
-import type { Mode } from '@/types';
+import type { Mode } from '@/types'
 
 interface ModeToggleProps {
-  mode: Mode;
-  onChange: (mode: Mode) => void;
+  mode: Mode
+  onChange: (mode: Mode) => void
 }
 
 /**
@@ -34,5 +34,5 @@ export default function ModeToggle({ mode, onChange }: ModeToggleProps) {
         Decrypt
       </button>
     </div>
-  );
+  )
 }

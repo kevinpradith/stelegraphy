@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { useTheme } from '@/contexts/theme-context';
+import { useTheme } from '@/contexts/theme-context'
 
 /**
  * macOS-style appearance control: toggles light / dark while staying monochrome.
  */
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const isDark = theme === 'dark';
-  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+  const { theme, toggleTheme } = useTheme()
+  const isDark = theme === 'dark'
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <button
@@ -43,5 +43,5 @@ export default function ThemeToggle() {
         </svg>
       </span>
     </button>
-  );
+  )
 }

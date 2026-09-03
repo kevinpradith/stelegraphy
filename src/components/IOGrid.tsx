@@ -1,19 +1,14 @@
-import IOPane from './IOPane';
-import SwapButton from './SwapButton';
+import IOPane from './IOPane'
+import SwapButton from './SwapButton'
 
 interface IOGridProps {
-  input: string;
-  output: string;
-  onInputChange: (value: string) => void;
-  onSwap: () => void;
+  input: string
+  output: string
+  onInputChange: (value: string) => void
+  onSwap: () => void
 }
 
-export default function IOGrid({
-  input,
-  output,
-  onInputChange,
-  onSwap,
-}: IOGridProps) {
+export default function IOGrid({ input, output, onInputChange, onSwap }: IOGridProps) {
   return (
     <div className="io-grid">
       <IOPane
@@ -40,5 +35,5 @@ export default function IOGrid({
         showCopy
       />
     </div>
-  );
+  )
 }
