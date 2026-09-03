@@ -34,27 +34,27 @@ textarea {
 /* ─── Design Tokens ──────────────────────────────────────────── */
 :root {
   /* ── Palette */
-  --bg: #EDEDEB;
-  --surface: #F6F6F4;
-  --surface-2: #EFEFED;
+  --bg: #ededeb;
+  --surface: #f6f6f4;
+  --surface-2: #efefed;
   --glass-surface: rgba(246, 246, 244, 0.75);
   --glass-sidebar: rgba(239, 239, 237, 0.65);
   --border: rgba(0, 0, 0, 0.12);
   --border-2: rgba(0, 0, 0, 0.08);
   --dot: rgba(0, 0, 0, 0.05);
 
-  --text-1: #0E0E0D;
-  --text-2: #5A5A58;
-  --text-3: #9A9A96;
+  --text-1: #0e0e0d;
+  --text-2: #5a5a58;
+  --text-3: #9a9a96;
 
-  --active-bg: #0E0E0D;
-  --active-fg: #F6F6F4;
-  --hover: #E2E2DE;
+  --active-bg: #0e0e0d;
+  --active-fg: #f6f6f4;
+  --hover: #e2e2de;
 
   /* ── Traffic Lights */
-  --red: #FF5F57;
-  --yellow: #FFBD2E;
-  --green: #28C840;
+  --red: #ff5f57;
+  --yellow: #ffbd2e;
+  --green: #28c840;
 
   /* ── Radius */
   --r-xs: 4px;
@@ -81,22 +81,22 @@ textarea {
 
 /* ─── Dark appearance (macOS-style graphite, still monochrome) ─ */
 [data-theme='dark'] {
-  --bg: #1C1C1E;
-  --surface: #2C2C2E;
-  --surface-2: #3A3A3C;
+  --bg: #1c1c1e;
+  --surface: #2c2c2e;
+  --surface-2: #3a3a3c;
   --glass-surface: rgba(44, 44, 46, 0.75);
   --glass-sidebar: rgba(30, 30, 30, 0.65);
   --border: rgba(255, 255, 255, 0.12);
   --border-2: rgba(255, 255, 255, 0.08);
   --dot: rgba(255, 255, 255, 0.045);
 
-  --text-1: #F2F2F7;
-  --text-2: #AEAEB2;
+  --text-1: #f2f2f7;
+  --text-2: #aeaeb2;
   --text-3: #636366;
 
-  --active-bg: #F2F2F7;
-  --active-fg: #1C1C1E;
-  --hover: #3A3A3C;
+  --active-bg: #f2f2f7;
+  --active-fg: #1c1c1e;
+  --hover: #3a3a3c;
 
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.25);
@@ -176,7 +176,10 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: var(--bg);
-  transition: background-color 400ms var(--ease-out), box-shadow 400ms var(--ease-out), border-color 400ms var(--ease-out);
+  transition:
+    background-color 400ms var(--ease-out),
+    box-shadow 400ms var(--ease-out),
+    border-color 400ms var(--ease-out);
 }
 
 /* Mobile: full viewport height, no scroll on the app shell */
@@ -189,7 +192,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-
   html[data-theme='light'] body,
   html:not([data-theme]) body {
     background-image:
@@ -213,15 +215,18 @@ body {
     border-radius: 12px;
     border: 1px solid var(--border);
     /* Subtle white top-edge highlight for that 3D glass edge */
-    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.4), 0 30px 80px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      inset 0 1px 0px rgba(255, 255, 255, 0.4),
+      0 30px 80px rgba(0, 0, 0, 0.2);
     overflow: hidden;
   }
 
   [data-theme='dark'] .app {
-    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.1), 0 30px 80px rgba(0, 0, 0, 0.6);
+    box-shadow:
+      inset 0 1px 0px rgba(255, 255, 255, 0.1),
+      0 30px 80px rgba(0, 0, 0, 0.6);
   }
 }
-
 
 .layout {
   display: flex;
@@ -270,17 +275,23 @@ body {
 
 .dot-red {
   background: var(--red);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .dot-yellow {
   background: var(--yellow);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .dot-green {
   background: var(--green);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Centered name + cipher */
@@ -325,7 +336,9 @@ body {
   padding: 2px 7px;
   min-width: 38px;
   text-align: center;
-  transition: color 400ms, background 400ms;
+  transition:
+    color 400ms,
+    background 400ms;
 }
 
 .titlebar-badge.is-enc {
@@ -374,7 +387,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle {
-    transition: background 400ms, border-color 400ms, color 400ms;
+    transition:
+      background 400ms,
+      border-color 400ms,
+      color 400ms;
   }
 
   .theme-toggle:active {
@@ -484,6 +500,20 @@ html[data-theme='dark'] .theme-toggle-sun {
   font-size: 11.5px;
   color: var(--text-2);
   line-height: 1.5;
+}
+
+.guide-note {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-2);
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.guide-note a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .sidebar-footer {
@@ -599,7 +629,9 @@ html[data-theme='dark'] .theme-toggle-sun {
   width: calc(50% - 3px);
   background: var(--active-bg);
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 1px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-2);
   transition: transform 500ms var(--ease-bounce);
   pointer-events: none;
@@ -666,7 +698,9 @@ html[data-theme='dark'] .theme-toggle-sun {
   outline: none;
   width: 80px;
   max-width: 100%;
-  transition: border-color 250ms var(--ease-out), box-shadow 300ms var(--ease-bounce);
+  transition:
+    border-color 250ms var(--ease-out),
+    box-shadow 300ms var(--ease-bounce);
 }
 
 .param-input-wide {
@@ -700,7 +734,9 @@ html[data-theme='dark'] .theme-toggle-sun {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   min-height: 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02);
   transition:
     background-color 400ms var(--ease-out),
     border-color 400ms var(--ease-out),
@@ -740,7 +776,9 @@ html[data-theme='dark'] .theme-toggle-sun {
   color: var(--text-2);
   padding: 2px 8px;
   border-radius: var(--r-xs);
-  transition: background 400ms, color 400ms;
+  transition:
+    background 400ms,
+    color 400ms;
 }
 
 .io-action:hover:not(:disabled) {
