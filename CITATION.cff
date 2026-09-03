@@ -1,0 +1,37 @@
+# Citation File Format 1.2.0. GitHub reads this file and offers a formatted
+# citation and a BibTeX entry in the sidebar of the repository.
+# Specification: https://citation-file-format.github.io
+cff-version: 1.2.0
+title: Stèlegraphy
+message: >-
+  If you use this software in work you publish, please cite it using the
+  metadata in this file.
+type: software
+authors:
+  - given-names: Kevin
+    family-names: Praditiansyah
+    email: kevinpradithh@gmail.com
+    website: https://www.linkedin.com/in/kevinpradith/
+repository-code: https://github.com/kevinpradith/stelegraphy
+url: https://stelegraphy.kevinpradith.my.id
+abstract: >-
+  A browser application that turns text into Elder Futhark runes and back. The
+  transform is a repeating-key XOR over URI-encoded text, normalised through
+  Base64 and mapped one-to-one onto 64 runes, so it is a Vigenere cipher over
+  bytes and is documented as such: the repository names the known-plaintext,
+  Kasiski and brute-force attacks that recover the key rather than describing
+  the output as encryption. Everything runs in the tab, with no network request
+  and a Content-Security-Policy that forbids one. It is intended as a teaching
+  example of the distance between text that looks secret and text that is.
+keywords:
+  - cipher
+  - xor
+  - vigenere
+  - elder-futhark
+  - cryptography-education
+  - client-side
+  - nextjs
+  - typescript
+license: MIT
+version: 0.2.0
+date-released: '2026-09-03'
