@@ -1,32 +1,32 @@
-import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-import { ThemeProvider } from '@/contexts/theme-context';
-import './globals.css';
+import type { Metadata, Viewport } from 'next'
+import { Inter, JetBrains_Mono } from 'next/font/google'
+import { ThemeProvider } from '@/contexts/theme-context'
+import './globals.css'
 
 /** Inline: set data-theme before paint to avoid flash (must match STORAGE_KEY + logic in theme-context). */
-const themeInitScript = `!function(){try{var k='stele-theme',t=localStorage.getItem(k),r=document.documentElement;if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);r.style.colorScheme=t;}else if(matchMedia('(prefers-color-scheme: dark)').matches){r.setAttribute('data-theme','dark');r.style.colorScheme='dark';}else{r.setAttribute('data-theme','light');r.style.colorScheme='light';}}catch(e){}}();`;
+const themeInitScript = `!function(){try{var k='stele-theme',t=localStorage.getItem(k),r=document.documentElement;if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);r.style.colorScheme=t;}else if(matchMedia('(prefers-color-scheme: dark)').matches){r.setAttribute('data-theme','dark');r.style.colorScheme='dark';}else{r.setAttribute('data-theme','light');r.style.colorScheme='light';}}catch(e){}}();`
 
 // ─── Fonts (self-hosted by Next.js, no external requests at runtime) ──
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-});
+})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
-});
+})
 
 // ─── Site URL & Base ─────────────────────────────────────────
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   ? process.env.NEXT_PUBLIC_SITE_URL
   : process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'https://stelegraphy.vercel.app';
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://stelegraphy.kevinpradith.my.id'
 
 // ─── SEO Metadata ────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     'visual cipher',
     'steganography',
   ],
-  authors: [{ name: 'Stèlegraphy' }],
-  creator: 'Stèlegraphy',
+  authors: [{ name: 'Kevin Praditiansyah', url: 'https://github.com/kevinpradith' }],
+  creator: 'Kevin Praditiansyah',
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-};
+}
 
 export const viewport: Viewport = {
   themeColor: [
@@ -87,12 +87,10 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
-};
+}
 
 // ─── Root Layout ─────────────────────────────────────────────
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
@@ -100,11 +98,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <script
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
