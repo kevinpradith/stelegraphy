@@ -1,0 +1,7 @@
+# Generated, vendored, or not this project's to format.
+node_modules/
+.next/
+out/
+.test-build/
+package-lock.json
+next-env.d.ts

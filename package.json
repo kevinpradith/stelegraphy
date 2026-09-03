@@ -1,12 +1,40 @@
 {
-  "name": "stele-next",
-  "version": "0.1.0",
+  "name": "stelegraphy",
+  "version": "0.2.0",
   "private": true,
+  "description": "A browser toy that turns text into Elder Futhark runes with a repeating-key XOR. Nothing is uploaded, and nothing is secret.",
+  "homepage": "https://stelegraphy.kevinpradith.my.id",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinpradith/stelegraphy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinpradith/stelegraphy/issues"
+  },
+  "license": "MIT",
+  "author": "Kevin Praditiansyah <kevinpradithh@gmail.com>",
+  "keywords": [
+    "cipher",
+    "xor",
+    "runes",
+    "elder-futhark",
+    "client-side",
+    "nextjs",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=22.18.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "pretest": "tsc test/crypto.test.ts --outDir .test-build --module nodenext --moduleResolution nodenext --target es2022 --skipLibCheck",
+    "test": "node --test .test-build/test/*.test.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "next": "16.2.4",
@@ -14,11 +42,12 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.18.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "prettier": "^3.6.2",
     "typescript": "^5"
   }
 }
